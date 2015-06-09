@@ -3,20 +3,25 @@ class HeaderChunk
 
   def initialize(text)
     @header_level = text.count('#')
-    @text = text
+    @text         = text
   end
 
   def render
-    "<h#{header_level}>#{stripped_text}</h#{header_level}>"
+    "<h#{header_level}>#{format_text(text)}</h#{header_level}>"
   end
 
   private
 
-  def header_hashes
-    '#' * header_level
+  def format_text(text)
+    formatted = remove_markdown(text)
+    remove_space_between_header_markdown(formatted)
   end
 
-  def stripped_text
-    text.sub(header_hashes, '').strip
+  def remove_markdown(text)
+    text.delete('#')
+  end
+
+  def remove_space_between_header_markdown(text)
+    text.strip
   end
 end

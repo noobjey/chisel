@@ -47,4 +47,10 @@ class HeaderChunkTest < Minitest::Test
     assert_equal(expected, chunk.render)
   end
 
+  def test_it_removes_blank_space_after_header_markdown
+    chunk = HeaderChunk.new('# some crap')
+    expected = '<h1>some crap</h1>'
+
+    assert_equal(expected, chunk.render)
+  end
 end
