@@ -4,9 +4,10 @@ require './lib/paragraph_chunk'
 
 class ParagraphChunkTest < Minitest::Test
 
-  def test_it_has_a_text_method
-    chunk = ParagraphChunk.new('wowowow')
-    assert_respond_to chunk, :text
+  def test_it_removes_newlines
+    chunk = ParagraphChunk.new("wowowow\n")
+    expected = 'wowowow'
+    assert_equal expected, chunk.text
   end
 
   def test_it_can_render_an_HTML_paragraph
