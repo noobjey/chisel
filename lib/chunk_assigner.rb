@@ -2,31 +2,29 @@ require_relative 'header_chunk'
 require_relative 'paragraph_chunk'
 
 class ChunkAssigner
-  attr_reader :inputs
+  attr_reader :inputs, :chunks
 
   def initialize(input)
     @inputs = input
   end
 
   def assign
-    chunks = inputs.map do |input|
+    @chunks = inputs.map do |input|
       assign_chunk(input)
     end
-    chunks
   end
-
 
   private
 
   def assign_chunk(input)
-    if is_a_header input
-      HeaderChunk.new("something")
+    if is_a_header(input)
+      HeaderChunk.new(input)
     else
-      ParagraphChunk.new("something")
+      ParagraphChunk.new(input)
     end
   end
 
-  def is_a_header chunk
+  def is_a_header(chunk)
     chunk.start_with?('#')
   end
 end

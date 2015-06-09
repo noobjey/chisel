@@ -38,4 +38,13 @@ class ChunkAssignerTest < Minitest::Test
     assert result[1].is_a?(HeaderChunk), "Actual: #{result[1].class}"
     assert result[2].is_a?(HeaderChunk), "Actual: #{result[2].class}"
   end
+
+  def test_chunks_have_original_message
+    input = ["I am a paragraph", "# I am a header"]
+    chunk_assigner = ChunkAssigner.new(input)
+
+    chunk_assigner.assign
+    assert_equal input[0], chunk_assigner.chunks[0].text
+    assert_equal input[01], chunk_assigner.chunks[1].text
+  end
 end
