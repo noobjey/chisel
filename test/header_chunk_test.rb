@@ -28,28 +28,47 @@ class HeaderChunkTest < Minitest::Test
 
   def test_it_renders_an_h1
     chunk = HeaderChunk.new('# some crap')
-    expected = '<h1>some crap</h1>'
+    expected = "<h1>some crap</h1>\n\n"
 
     assert_equal(expected, chunk.render)
   end
 
   def test_it_renders_an_h2
     chunk = HeaderChunk.new('## some crap')
-    expected = '<h2>some crap</h2>'
+    expected = "<h2>some crap</h2>\n\n"
 
     assert_equal(expected, chunk.render)
   end
 
   def test_it_renders_an_h5
     chunk = HeaderChunk.new('##### some crap')
-    expected = '<h5>some crap</h5>'
+    expected = "<h5>some crap</h5>\n\n"
 
     assert_equal(expected, chunk.render)
   end
 
   def test_it_removes_blank_space_after_header_markdown
     chunk = HeaderChunk.new('# some crap')
-    expected = '<h1>some crap</h1>'
+    expected = "<h1>some crap</h1>\n\n"
+
+    assert_equal(expected, chunk.render)
+  end
+
+  def test_it_removes_newline
+    chunk = HeaderChunk.new("# some crap\n\n")
+    expected = "# some crap"
+
+    assert_equal(expected, chunk.text)
+
+  end
+
+  def test_it_adds_two_newlines
+    chunk = HeaderChunk.new('##### some crap')
+
+    expected = <<-html_with_spaces
+<h5>some crap</h5>
+
+    html_with_spaces
 
     assert_equal(expected, chunk.render)
   end

@@ -10,9 +10,16 @@ class ParagraphChunkTest < Minitest::Test
     assert_equal expected, chunk.text
   end
 
-  def test_it_can_render_an_HTML_paragraph
+  def test_it_can_render_an_HTML_paragraph_with_newlines
     chunk = ParagraphChunk.new('wowowow')
-    assert_equal '<p>wowowow</p>', chunk.render
+    expected = <<-expected_html
+<p>
+  wowowow
+</p>
+
+    expected_html
+
+    assert_equal expected, chunk.render
   end
 
 end

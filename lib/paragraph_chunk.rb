@@ -7,7 +7,12 @@ class ParagraphChunk
   end
 
   def render
-    "<p>#{text}</p>"
+    <<-html_with_spaces
+<p>
+  #{text}
+</p>
+
+    html_with_spaces
   end
 
   def clean(text)

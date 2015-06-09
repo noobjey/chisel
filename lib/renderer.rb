@@ -13,7 +13,6 @@ class Renderer
     html = assigned_chunks.map do |chunk|
       convert_to_html(chunk)
     end
-
     html.join
   end
 

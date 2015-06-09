@@ -3,11 +3,14 @@ class HeaderChunk
 
   def initialize(text)
     @header_level = text.count('#')
-    @text         = text
+    @text         = text.strip
   end
 
   def render
-    "<h#{header_level}>#{format_text(text)}</h#{header_level}>"
+    <<-html_with_newlines
+<h#{header_level}>#{format_text(text)}</h#{header_level}>
+
+html_with_newlines
   end
 
   private
