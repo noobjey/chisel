@@ -40,4 +40,11 @@ class HeaderChunkTest < Minitest::Test
     assert_equal(expected, chunk.render)
   end
 
+  def test_it_renders_an_h5
+    chunk = HeaderChunk.new('##### some crap')
+    expected = '<h5>some crap</h5>'
+
+    assert_equal(expected, chunk.render)
+  end
+
 end
