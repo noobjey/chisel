@@ -5,7 +5,7 @@ require './lib/strong_chunk'
 class StrongChunkTest < Minitest::Test
 
   def test_it_has_the_input
-    skip #maybe dont need this
+    # skip
     input = "some stuff"
     strong_chunk = StrongChunk.new(input)
 
