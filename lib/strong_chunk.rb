@@ -6,12 +6,12 @@ class StrongChunk
   end
 
   def render
-    if is_strong?(text)
-      first_strong = text.sub('**', '<strong>')
-      first_strong.sub('**', '</strong>')
-    else
-      text
+    result = text
+    while is_strong?(result)
+      result = result.sub('**', '<strong>')
+      result = result.sub('**', '</strong>')
     end
+    result
   end
 
   def is_strong?(text)

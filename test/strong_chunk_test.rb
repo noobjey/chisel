@@ -33,7 +33,7 @@ class StrongChunkTest < Minitest::Test
     assert_equal input, strong_chunk.render
   end
 
-  def test_replaces_both_strong_markdown_with_strong_html
+  def test_replaces_strong_markdown_with_strong_html
     input = "some **stuff**"
     expected = "some <strong>stuff</strong>"
     strong_chunk = StrongChunk.new(input)
@@ -41,9 +41,18 @@ class StrongChunkTest < Minitest::Test
     assert_equal expected, strong_chunk.render
   end
 
+  def test_replaces_multiple_strong_markdowns_with_html
+    input = "**some** **stuff**"
+    expected = "<strong>some</strong> <strong>stuff</strong>"
+    strong_chunk = StrongChunk.new(input)
+
+    assert_equal expected, strong_chunk.render
+  end
+
   def test_acceptance
-    input = "<p>\"You just *have* to try the cheesecake,\" he said. \"Ever since it appeared in **Food & Wine** this place has been packed every night.\"</p>"
-    expected = "<p>\"You just *have* to try the cheesecake,\" he said. \"Ever since it appeared in <strong>Food & Wine</strong> this place has been packed every night.\"</p>"
+    # skip
+    input = "<p>\"You just *have* to try the cheesecake,\" he said. \"Ever since **it** appeared in **Food & Wine** this place has been packed every night.\"</p>"
+    expected = "<p>\"You just *have* to try the cheesecake,\" he said. \"Ever since <strong>it</strong> appeared in <strong>Food & Wine</strong> this place has been packed every night.\"</p>"
     strong_chunk = StrongChunk.new(input)
 
     assert_equal expected, strong_chunk.render
