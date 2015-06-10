@@ -6,11 +6,15 @@ class EmChunk
   end
 
   def render
-    opening_markdown_replaced = text.sub('*', '<em>')
-    opening_markdown_replaced.sub('*', '</em>')
+    result = text
+    while contains_em_markdown?(result)
+      result = result.sub('*', '<em>')
+      result = result.sub('*', '</em>')
+    end
+    result
   end
 
-  def contains_em_markdown?
-    text.include?('*')
+  def contains_em_markdown?(input)
+    input.include?('*')
   end
 end
