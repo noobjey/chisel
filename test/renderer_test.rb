@@ -46,6 +46,16 @@ class RendererTest < Minitest::Test
     assert_equal expected, renderer.rend
   end
 
+  def test_render_input_with_nested_inlines
+    # skip
+    input    = '# My *Life **in** Desserts*'
+    expected = "<h1>My <em>Life <strong>in</strong> Desserts</em></h1>\n\n"
+
+    renderer = Renderer.new(input)
+
+    assert_equal expected, renderer.rend
+  end
+
   def test_render_input_with_multiple_chunks
     # skip
 
