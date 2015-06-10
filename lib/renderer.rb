@@ -1,5 +1,8 @@
 require './lib/chunker'
 require './lib/chunk_assigner'
+require './lib/strong_chunk'
+
+#hate the newlines in the chunktypes, refactor that back into renderer?
 
 class Renderer
 
@@ -13,7 +16,12 @@ class Renderer
     html = assigned_chunks.map do |chunk|
       convert_to_html(chunk)
     end
-    html.join
+
+    inline_html = html.map do |chunk|
+      strong_chunk = StrongChunk.new(chunk)
+      strong_chunk.render
+    end
+    inline_html.join
   end
 
   def chunk(input)

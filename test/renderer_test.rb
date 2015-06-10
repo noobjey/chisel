@@ -69,7 +69,7 @@ class RendererTest < Minitest::Test
     assert_equal expected, renderer.rend
   end
 
-  def test_render_acceptance_without_inline_stuff
+  def test_render_acceptance_with_strong
     # skip
     input = <<-long_input
 # My Life in Desserts
@@ -86,7 +86,7 @@ class RendererTest < Minitest::Test
 <h2>Chapter 1: The Beginning</h2>
 
 <p>
-  "You just *have* to try the cheesecake," he said. "Ever since it appeared in **Food & Wine** this place has been packed every night."
+  "You just *have* to try the cheesecake," he said. "Ever since it appeared in <strong>Food & Wine</strong> this place has been packed every night."
 </p>
 
     long_output
