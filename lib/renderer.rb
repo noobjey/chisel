@@ -17,7 +17,7 @@ class Renderer
     html = assigned_chunks.map do |chunk|
       convert_to_html(chunk)
     end
-    # this totally sucks because it depends on strong running first and doesnot handle multiples at all
+    # this totally sucks because it depends on strong running first
     inline_html = html.map do |chunk|
       strong_chunk = StrongChunk.new(chunk)
       converted_strongs = strong_chunk.render
