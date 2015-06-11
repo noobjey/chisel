@@ -2,6 +2,7 @@ require './lib/chunker'
 require './lib/chunk_assigner'
 require './lib/strong_chunk'
 require './lib/em_chunk'
+require './lib/link_chunk'
 
 #hate the newlines in the chunktypes, refactor that back into renderer?
 
@@ -21,8 +22,12 @@ class Renderer
     inline_html = html.map do |chunk|
       strong_chunk = StrongChunk.new(chunk)
       converted_strongs = strong_chunk.render
+
       em_chunk = EmChunk.new(converted_strongs)
-      em_chunk.render
+      converted_ems = em_chunk.render
+
+      link_chunk = LinkChunk.new(converted_ems)
+      link_chunk.render
     end
     inline_html.join
   end

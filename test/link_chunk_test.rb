@@ -1,0 +1,70 @@
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/link_chunk'
+
+class LinkChunkTest < Minitest::Test
+
+  def test_has_original_markdown
+    input      = "[an example](http://example.com/)"
+    link_chunk = LinkChunk.new(input)
+
+    assert_equal input, link_chunk.text
+  end
+
+  def test_input_does_not_contain_link_markdown
+    input      = "http://example.com/"
+    link_chunk = LinkChunk.new(input)
+
+    refute link_chunk.contains_link_markdown?(input)
+  end
+
+  def test_input_contains_link_markdown
+    input      = "(http://example.com/)"
+    link_chunk = LinkChunk.new(input)
+
+    assert link_chunk.contains_link_markdown?(input)
+  end
+
+  def test_surrounds_markdown_link_text_with_a_tag
+    input      = "[an example]"
+    expected   = "<a>an example</a>"
+    link_chunk = LinkChunk.new(input)
+
+    result = link_chunk.add_link_text(input)
+
+    assert_equal expected, result
+  end
+
+  def test_adds_markdown_link_to_http_attribute
+    input      = "(http://example.com/)"
+    expected   = "href=\"http://example.com/\""
+    link_chunk = LinkChunk.new(input)
+
+    result = link_chunk.add_http_attribute(input)
+
+    assert_equal expected, result
+  end
+
+  def test_acceptance_without_title
+    # skip
+    input      = "some text before [an example](http://example.com/) some text after"
+    expected   = "some text before <a href=\"http://example.com/\">an example</a> some text after"
+    link_chunk = LinkChunk.new(input)
+
+    result = link_chunk.render
+
+    assert_equal expected, result
+  end
+
+  def test_acceptance_multiple_links
+    # skip
+    input      = "here is [example one](http://example.com/) and [example two](http://example.com/two/)"
+    expected   = "here is <a href=\"http://example.com/\">example one</a> and <a href=\"http://example.com/two/\">example two</a>"
+    link_chunk = LinkChunk.new(input)
+
+    result = link_chunk.render
+
+    assert_equal expected, result
+  end
+
+end

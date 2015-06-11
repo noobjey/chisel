@@ -113,7 +113,7 @@ class RendererTest < Minitest::Test
   end
 
 
-  def test_render_acceptance_with_ordered_list
+  def test_render_acceptance_with_list_without_title
     # skip
     input = <<-long_input
 # My Life in Desserts
@@ -122,7 +122,7 @@ class RendererTest < Minitest::Test
 
 "You just *have* to try the cheesecake," he said. "Ever since it appeared in **Food & Wine** this place has been packed every night."
 
-My favorite cuisines are:
+My favorite [cuisines](http://cuisine.com/) are:
 
 * Sushi
 * Barbeque
@@ -131,7 +131,7 @@ My favorite cuisines are:
 My favorite cuisines are:
 
 1. Sushi
-2. Barbeque
+2. [Barbeque](http://barbeque.com/)
 3. Mexican
 
     long_input
@@ -146,7 +146,7 @@ My favorite cuisines are:
 </p>
 
 <p>
-  My favorite cuisines are:
+  My favorite <a href="http://cuisine.com/">cuisines</a> are:
 </p>
 
 <ul>
@@ -161,7 +161,7 @@ My favorite cuisines are:
 
 <ol>
   <li>Sushi</li>
-<li>Barbeque</li>
+<li><a href="http://barbeque.com/">Barbeque</a></li>
 <li>Mexican</li>
 </ol>
 
