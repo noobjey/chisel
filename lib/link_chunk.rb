@@ -1,12 +1,12 @@
 class LinkChunk
-  attr_reader :text
+  attr_reader :markdown
 
-  def initialize(input)
-    @text = input
+  def initialize(markdown)
+    @markdown = markdown
   end
 
   def render
-    result = text
+    result = markdown
     while contains_link_markdown?(result)
       result = to_html(result)
     end

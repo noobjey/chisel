@@ -8,7 +8,7 @@ class LinkChunkTest < Minitest::Test
     input      = "[an example](http://example.com/)"
     link_chunk = LinkChunk.new(input)
 
-    assert_equal input, link_chunk.text
+    assert_equal input, link_chunk.markdown
   end
 
   def test_input_does_not_contain_link_markdown
