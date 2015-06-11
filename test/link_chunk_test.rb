@@ -40,7 +40,18 @@ class LinkChunkTest < Minitest::Test
     expected   = "href=\"http://example.com/\""
     link_chunk = LinkChunk.new(input)
 
-    result = link_chunk.add_http_attribute(input)
+    result = link_chunk.add_href_attribute(input)
+
+    assert_equal expected, result
+  end
+
+  def test_adds_markdown_title_to_title_attribute
+    # skip
+    input      = "\"Title\""
+    expected   = "title=\"Title\""
+    link_chunk = LinkChunk.new(input)
+
+    result = link_chunk.add_title_attribute(input)
 
     assert_equal expected, result
   end
@@ -49,6 +60,30 @@ class LinkChunkTest < Minitest::Test
     # skip
     input      = "some text before [an example](http://example.com/) some text after"
     expected   = "some text before <a href=\"http://example.com/\">an example</a> some text after"
+    link_chunk = LinkChunk.new(input)
+
+    result = link_chunk.render
+
+    assert_equal expected, result
+  end
+
+  def test_removes_title_markdown_when_converts_markdown_link_to_http_attribute
+    # skip
+    input      = "(http://example.com/ \"Title\")"
+    title_markdown = "\"Title\""
+    expected   = "(http://example.com/)"
+
+    link_chunk = LinkChunk.new(input)
+
+    result = link_chunk.remove_title(input, title_markdown)
+
+    assert_equal expected, result
+  end
+
+  def test_acceptance_with_title_attribute
+    # skip
+    input      = "some text before [an example](http://example.com/ \"Title\") some text after"
+    expected   = "some text before <a href=\"http://example.com/\" title=\"Title\">an example</a> some text after"
     link_chunk = LinkChunk.new(input)
 
     result = link_chunk.render

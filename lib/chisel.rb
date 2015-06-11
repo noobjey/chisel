@@ -18,5 +18,5 @@ html_file.write(html)
 
 html_file.rewind
 markdown_file.rewind
-puts "Converted my_input.markdown (#{markdown_file.readlines.count.to_s} lines) to my_output.html (#{html_file.readlines.count.to_s} lines)"
+puts "Converted #{input_markdown_file_name} (#{markdown_file.readlines.count.to_s} lines) to #{output_html_file_name} (#{html_file.readlines.count.to_s} lines)"
 
