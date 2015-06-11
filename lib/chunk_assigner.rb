@@ -1,7 +1,7 @@
-require 'header_chunk'
-require 'paragraph_chunk'
-require 'unordered_list_chunk'
-require 'ordered_list_chunk'
+require './lib/header_chunk'
+require './lib/paragraph_chunk'
+require './lib/unordered_list_chunk'
+require './lib/ordered_list_chunk'
 
 class ChunkAssigner
   attr_reader :inputs, :chunks
