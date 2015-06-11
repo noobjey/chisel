@@ -11,7 +11,7 @@ class Renderer
     @input = input
   end
 
-  def rend
+  def render
     chunked = chunk(@input)
     assigned_chunks = assign(chunked)
     html = assigned_chunks.map do |chunk|

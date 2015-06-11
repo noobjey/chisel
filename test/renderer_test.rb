@@ -43,7 +43,7 @@ class RendererTest < Minitest::Test
 
     renderer = Renderer.new(input)
 
-    assert_equal expected, renderer.rend
+    assert_equal expected, renderer.render
   end
 
   def test_render_input_with_nested_inlines
@@ -53,7 +53,7 @@ class RendererTest < Minitest::Test
 
     renderer = Renderer.new(input)
 
-    assert_equal expected, renderer.rend
+    assert_equal expected, renderer.render
   end
 
   def test_render_input_with_multiple_chunks
@@ -76,7 +76,7 @@ class RendererTest < Minitest::Test
 
     renderer = Renderer.new(input)
 
-    assert_equal expected, renderer.rend
+    assert_equal expected, renderer.render
   end
 
   def test_render_list_with_inline_markdown
@@ -109,7 +109,7 @@ class RendererTest < Minitest::Test
 
     renderer = Renderer.new(input)
 
-    assert_equal expected, renderer.rend
+    assert_equal expected, renderer.render
   end
 
 
@@ -169,7 +169,7 @@ My favorite cuisines are:
 
     renderer = Renderer.new(input)
 
-    assert_equal expected, renderer.rend
+    assert_equal expected, renderer.render
   end
 
 
