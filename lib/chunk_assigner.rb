@@ -17,14 +17,20 @@ class ChunkAssigner
   private
 
   def assign_chunk(input)
-    if is_a_header(input)
+    if is_a_header?(input)
       HeaderChunk.new(input)
+    elsif is_an_unordered_list?(input)
+      UnorderedListChunk.new(input)
     else
       ParagraphChunk.new(input)
     end
   end
 
-  def is_a_header(chunk)
+  def is_a_header?(chunk)
     chunk.start_with?('#')
+  end
+
+  def is_an_unordered_list?(chunk)
+    chunk.start_with?('* ')
   end
 end

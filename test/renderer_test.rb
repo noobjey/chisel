@@ -79,7 +79,7 @@ class RendererTest < Minitest::Test
     assert_equal expected, renderer.rend
   end
 
-  def test_render_acceptance_with_strong
+  def test_render_acceptance_with_unordered_lists
     # skip
     input = <<-long_input
 # My Life in Desserts
@@ -87,6 +87,12 @@ class RendererTest < Minitest::Test
 ## Chapter 1: The Beginning
 
 "You just *have* to try the cheesecake," he said. "Ever since it appeared in **Food & Wine** this place has been packed every night."
+
+My favorite cuisines are:
+
+* Sushi
+* Barbeque
+* Mexican
 
     long_input
 
@@ -99,10 +105,27 @@ class RendererTest < Minitest::Test
   "You just <em>have</em> to try the cheesecake," he said. "Ever since it appeared in <strong>Food & Wine</strong> this place has been packed every night."
 </p>
 
+<p>
+  My favorite cuisines are:
+</p>
+
+<ul>
+  <li>Sushi</li>
+<li>Barbeque</li>
+<li>Mexican</li>
+</ul>
+
     long_output
 
     renderer = Renderer.new(input)
 
     assert_equal expected, renderer.rend
   end
+
+  private
+
+  # method shawn showed me but i really don't know exactly how it works
+  # def normalize_whitespace(string)
+  #   string.gsub(/\n?(\<[^\>]\>)\n?/, '\1').gsub(/\s+/, " ")
+  # end
 end

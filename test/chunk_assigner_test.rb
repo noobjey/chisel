@@ -3,6 +3,7 @@ require 'minitest/pride'
 require './lib/chunk_assigner'
 require './lib/header_chunk'
 require './lib/paragraph_chunk'
+require './lib/unordered_list_chunk'
 
 class ChunkAssignerTest < Minitest::Test
 
@@ -46,5 +47,14 @@ class ChunkAssignerTest < Minitest::Test
     chunk_assigner.assign
     assert_equal input[0], chunk_assigner.chunks[0].text
     assert_equal input[01], chunk_assigner.chunks[1].text
+  end
+
+  def test_can_add_unordered_list_chunk
+    input = ["* list item1<\n>* list item2<\n>*list item3</n>"]
+    chunk_assigner = ChunkAssigner.new(input)
+
+    result = chunk_assigner.assign
+
+    assert result[0].is_a?(UnorderedListChunk), "Actual: #{result[0].class}"
   end
 end
