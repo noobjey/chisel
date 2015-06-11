@@ -14,13 +14,13 @@ class LinkChunk
   end
 
   def to_html(input)
-    href_attribute_markdown   = get_href_markdown(input)
-    href_attribute_markdown_without_title   = remove_title(href_attribute_markdown, @title_attribute_markdown)
-    @title_attribute_markdown = get_title_markdown(input)
-    link_markdown_block       = get_line_markdown(input)
+    href_attribute_markdown               = get_href_markdown(input)
+    title_attribute_markdown              = get_title_markdown(input)
+    href_attribute_markdown_without_title = remove_title(href_attribute_markdown, title_attribute_markdown)
+    link_markdown_block                   = get_line_markdown(input)
 
-    href_attribute  = add_href_attribute(remove_title(href_attribute_markdown_without_title, @title_attribute_markdown))
-    title_attribute = add_title_attribute(@title_attribute_markdown)
+    href_attribute  = add_href_attribute(remove_title(href_attribute_markdown_without_title, title_attribute_markdown))
+    title_attribute = add_title_attribute(title_attribute_markdown)
     link_html       = add_link_text(link_markdown_block)
 
     href_with_title = inject_title_attribute_into_href(href_attribute, title_attribute)
