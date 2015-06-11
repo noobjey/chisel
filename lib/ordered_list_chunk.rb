@@ -31,6 +31,6 @@ class OrderedListChunk
   private
 
   def remove_markdown(input)
-    input.slice(3...input.length).strip
+    input.slice(3..input.length).strip
   end
 end

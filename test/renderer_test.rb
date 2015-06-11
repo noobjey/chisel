@@ -79,6 +79,40 @@ class RendererTest < Minitest::Test
     assert_equal expected, renderer.rend
   end
 
+  def test_render_list_with_inline_markdown
+    # skip
+    input = <<-long_input
+* *Sushi*
+* **Barbeque**
+* Mexican
+
+1. **Sushi**
+2. *Barbeque*
+3. Mexican
+
+    long_input
+
+    expected = <<-long_output
+<ul>
+  <li><em>Sushi</em></li>
+<li><strong>Barbeque</strong></li>
+<li>Mexican</li>
+</ul>
+
+<ol>
+  <li><strong>Sushi</strong></li>
+<li><em>Barbeque</em></li>
+<li>Mexican</li>
+</ol>
+
+    long_output
+
+    renderer = Renderer.new(input)
+
+    assert_equal expected, renderer.rend
+  end
+
+
   def test_render_acceptance_with_ordered_list
     # skip
     input = <<-long_input
@@ -137,6 +171,8 @@ My favorite cuisines are:
 
     assert_equal expected, renderer.rend
   end
+
+
 
   private
 

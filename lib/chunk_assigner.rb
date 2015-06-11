@@ -1,5 +1,7 @@
 require_relative 'header_chunk'
 require_relative 'paragraph_chunk'
+require_relative 'unordered_list_chunk'
+require_relative 'ordered_list_chunk'
 
 class ChunkAssigner
   attr_reader :inputs, :chunks

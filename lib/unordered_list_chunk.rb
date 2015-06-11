@@ -31,6 +31,6 @@ class UnorderedListChunk
   private
 
   def remove_markdown(input)
-    input.delete('*').strip
+    input.slice(1..input.length).strip
   end
 end
