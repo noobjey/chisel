@@ -16,8 +16,7 @@ class HeaderChunk
   private
 
   def format_text(text)
-    formatted = remove_markdown(text)
-    remove_space_between_header_markdown(formatted)
+    remove_space_between_header_markdown(remove_markdown(text))
   end
 
   def remove_markdown(text)

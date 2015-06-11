@@ -171,13 +171,4 @@ My favorite cuisines are:
 
     assert_equal expected, renderer.render
   end
-
-
-
-  private
-
-  # method shawn showed me but i really don't know exactly how it works
-  # def normalize_whitespace(string)
-  #   string.gsub(/\n?(\<[^\>]\>)\n?/, '\1').gsub(/\s+/, " ")
-  # end
 end

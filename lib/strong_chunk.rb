@@ -8,8 +8,7 @@ class StrongChunk
   def render
     result = text
     while is_strong?(result)
-      result = result.sub('**', '<strong>')
-      result = result.sub('**', '</strong>')
+      result = result.sub('**', '<strong>').sub('**', '</strong>')
     end
     result
   end

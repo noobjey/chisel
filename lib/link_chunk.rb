@@ -30,12 +30,7 @@ class LinkChunk
   end
 
   def remove_title(href_markdown, title_attribute_markdown)
-    if title_attribute_markdown.nil?
-      result = href_markdown
-    else
-      result = href_markdown.sub(' ' + title_attribute_markdown, '')
-    end
-    result
+    title_attribute_markdown.nil? ? href_markdown : href_markdown.sub(' ' + title_attribute_markdown, '')
   end
 
   def add_link_text(markdown)
@@ -61,15 +56,11 @@ class LinkChunk
   private
 
   def get_href_markdown(markdown)
-    opening_paren = markdown.index('(')
-    closing_paren = markdown.index(')')
-    markdown.slice(opening_paren..closing_paren)
+    markdown.slice(markdown.index('(')..markdown.index(')'))
   end
 
   def get_line_markdown(markdown)
-    opening_block_position = markdown.index('[')
-    closing_block_position = markdown.index(']')
-    markdown.slice(opening_block_position..closing_block_position)
+    markdown.slice(markdown.index('[')..markdown.index(']'))
   end
 
   def get_title_markdown(markdown)
@@ -87,11 +78,7 @@ class LinkChunk
   end
 
   def inject_title_attribute_into_href(href, title)
-    if title.empty?
-      href
-    else
-      "#{href} #{title}"
-    end
+    title.empty? ? href : "#{href} #{title}"
   end
 
   def remove_markdown(input)
