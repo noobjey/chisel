@@ -1,20 +1,19 @@
 class EmChunk
-  attr_reader :text
+  attr_reader :markdown
 
-  def initialize(input)
-    @text = input
+  def initialize(markdown)
+    @markdown = markdown
   end
 
   def render
-    result = text
+    result = markdown
     while contains_em_markdown?(result)
-      result = result.sub('*', '<em>')
-      result = result.sub('*', '</em>')
+      result = result.sub('*', '<em>').sub('*', '</em>')
     end
     result
   end
 
-  def contains_em_markdown?(input)
-    input.include?('*')
+  def contains_em_markdown?(markdown)
+    markdown.include?('*')
   end
 end

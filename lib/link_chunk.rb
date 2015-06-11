@@ -13,11 +13,11 @@ class LinkChunk
     result
   end
 
-  def to_html(input)
-    href_attribute_markdown               = get_href_markdown(input)
-    title_attribute_markdown              = get_title_markdown(input)
+  def to_html(markdown)
+    href_attribute_markdown               = get_href_markdown(markdown)
+    title_attribute_markdown              = get_title_markdown(markdown)
     href_attribute_markdown_without_title = remove_title(href_attribute_markdown, title_attribute_markdown)
-    link_markdown_block                   = get_line_markdown(input)
+    link_markdown_block                   = get_line_markdown(markdown)
 
     href_attribute  = add_href_attribute(remove_title(href_attribute_markdown_without_title, title_attribute_markdown))
     title_attribute = add_title_attribute(title_attribute_markdown)
@@ -26,7 +26,7 @@ class LinkChunk
     href_with_title = inject_title_attribute_into_href(href_attribute, title_attribute)
     html_with_href  = inject_href_attribute_into_link_tag(link_html, href_with_title)
 
-    input.sub(link_markdown_block + href_attribute_markdown, html_with_href)
+    markdown.sub(link_markdown_block + href_attribute_markdown, html_with_href)
   end
 
   def remove_title(href_markdown, title_attribute_markdown)
@@ -38,42 +38,42 @@ class LinkChunk
     result
   end
 
-  def add_link_text(input)
-    "<a>#{remove_markdown(input)}</a>"
+  def add_link_text(markdown)
+    "<a>#{remove_markdown(markdown)}</a>"
   end
 
-  def add_href_attribute(input)
-    "href=\"#{remove_markdown(input)}\""
+  def add_href_attribute(markdown)
+    "href=\"#{remove_markdown(markdown)}\""
   end
 
-  def add_title_attribute(input)
-    if input.empty?
-      input
+  def add_title_attribute(markdown)
+    if markdown.empty?
+      markdown
     else
-      "title=#{input}"
+      "title=#{markdown}"
     end
   end
 
-  def contains_link_markdown?(input)
-    input.include?('(http:')
+  def contains_link_markdown?(markdown)
+    markdown.include?('(http:')
   end
 
   private
 
-  def get_href_markdown(input)
-    opening_paren = input.index('(')
-    closing_paren = input.index(')')
-    input.slice(opening_paren..closing_paren)
+  def get_href_markdown(markdown)
+    opening_paren = markdown.index('(')
+    closing_paren = markdown.index(')')
+    markdown.slice(opening_paren..closing_paren)
   end
 
-  def get_line_markdown(input)
-    opening_block_position = input.index('[')
-    closing_block_position = input.index(']')
-    input.slice(opening_block_position..closing_block_position)
+  def get_line_markdown(markdown)
+    opening_block_position = markdown.index('[')
+    closing_block_position = markdown.index(']')
+    markdown.slice(opening_block_position..closing_block_position)
   end
 
-  def get_title_markdown(input)
-    href_markdown              = get_href_markdown(input)
+  def get_title_markdown(markdown)
+    href_markdown              = get_href_markdown(markdown)
     opening_title_double_quote = href_markdown.index('"')
 
     return '' if opening_title_double_quote.nil?

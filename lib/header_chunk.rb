@@ -10,7 +10,7 @@ class HeaderChunk
     <<-html_with_newlines
 <h#{header_level}>#{format_text(text)}</h#{header_level}>
 
-html_with_newlines
+    html_with_newlines
   end
 
   private

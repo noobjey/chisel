@@ -4,45 +4,50 @@ require './lib/strong_chunk'
 require './lib/em_chunk'
 require './lib/link_chunk'
 
-#hate the newlines in the chunktypes, refactor that back into renderer?
-
 class Renderer
 
-  def initialize(input)
-    @input = input
+  def initialize(markdown)
+    @markdown = markdown
   end
 
   def render
-    chunked = chunk(@input)
+    chunked = chunk(@markdown)
     assigned_chunks = assign(chunked)
-    html = assigned_chunks.map do |chunk|
-      convert_to_html(chunk)
-    end
-    # this totally sucks because it depends on strong running first
-    inline_html = html.map do |chunk|
-      strong_chunk = StrongChunk.new(chunk)
-      converted_strongs = strong_chunk.render
+    html = convert_chunks_to_html(assigned_chunks)
 
-      em_chunk = EmChunk.new(converted_strongs)
-      converted_ems = em_chunk.render
-
-      link_chunk = LinkChunk.new(converted_ems)
-      link_chunk.render
-    end
+    inline_html = convert_inline_chunks_to_html(html)
     inline_html.join
   end
 
   def chunk(input)
-    chunker = Chunker.new(input)
-    chunker.chunks
+    Chunker.new(input).chunks
   end
 
-  def assign(input)
-    chunk_assigner = ChunkAssigner.new(input)
-    chunk_assigner.assign
+  def assign(chunks)
+    ChunkAssigner.new(chunks).assign
   end
 
-  def convert_to_html(input)
-    input.render
+  def convert_to_html(chunk)
+    chunk.render
+  end
+
+  private
+
+
+  def convert_inline_chunks_to_html(html)
+    html.map do |chunk|
+      converted_strongs = StrongChunk.new(chunk).render
+
+      converted_ems = EmChunk.new(converted_strongs).render
+
+      converted_links = LinkChunk.new(converted_ems).render
+      converted_links
+    end
+  end
+
+  def convert_chunks_to_html(assigned_chunks)
+    assigned_chunks.map do |chunk|
+      convert_to_html(chunk)
+    end
   end
 end

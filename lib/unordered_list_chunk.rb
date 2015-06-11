@@ -10,7 +10,7 @@ class UnorderedListChunk
   end
 
   def add_list_html(input)
-    result = ''
+    result     = ''
     list_items = input.split("\n")
     list_items.each do |list_item|
       result << "<li>#{remove_markdown(list_item)}</li>\n"
