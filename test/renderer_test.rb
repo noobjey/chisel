@@ -79,7 +79,7 @@ class RendererTest < Minitest::Test
     assert_equal expected, renderer.rend
   end
 
-  def test_render_acceptance_with_unordered_lists
+  def test_render_acceptance_with_ordered_list
     # skip
     input = <<-long_input
 # My Life in Desserts
@@ -93,6 +93,12 @@ My favorite cuisines are:
 * Sushi
 * Barbeque
 * Mexican
+
+My favorite cuisines are:
+
+1. Sushi
+2. Barbeque
+3. Mexican
 
     long_input
 
@@ -114,6 +120,16 @@ My favorite cuisines are:
 <li>Barbeque</li>
 <li>Mexican</li>
 </ul>
+
+<p>
+  My favorite cuisines are:
+</p>
+
+<ol>
+  <li>Sushi</li>
+<li>Barbeque</li>
+<li>Mexican</li>
+</ol>
 
     long_output
 

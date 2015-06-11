@@ -4,6 +4,7 @@ require './lib/chunk_assigner'
 require './lib/header_chunk'
 require './lib/paragraph_chunk'
 require './lib/unordered_list_chunk'
+require './lib/ordered_list_chunk'
 
 class ChunkAssignerTest < Minitest::Test
 
@@ -56,5 +57,14 @@ class ChunkAssignerTest < Minitest::Test
     result = chunk_assigner.assign
 
     assert result[0].is_a?(UnorderedListChunk), "Actual: #{result[0].class}"
+  end
+
+  def test_can_add_ordered_list_chunk
+    input = ["1. list item1<\n>2. list item2<\n>3. list item3</n>"]
+    chunk_assigner = ChunkAssigner.new(input)
+
+    result = chunk_assigner.assign
+
+    assert result[0].is_a?(OrderedListChunk), "Actual: #{result[0].class}"
   end
 end

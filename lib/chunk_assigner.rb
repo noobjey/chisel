@@ -21,6 +21,8 @@ class ChunkAssigner
       HeaderChunk.new(input)
     elsif is_an_unordered_list?(input)
       UnorderedListChunk.new(input)
+    elsif is_an_ordered_list?(input)
+      OrderedListChunk.new(input)
     else
       ParagraphChunk.new(input)
     end
@@ -28,6 +30,10 @@ class ChunkAssigner
 
   def is_a_header?(chunk)
     chunk.start_with?('#')
+  end
+
+  def is_an_ordered_list?(chunk)
+    chunk.start_with?('1. ')
   end
 
   def is_an_unordered_list?(chunk)
